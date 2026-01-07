@@ -1,0 +1,383 @@
+/* ===============================
+   RESET
+================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #f0fdfa;
+  background-image: url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* ===============================
+   APP CONTAINER
+================================ */
+.app-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* ===============================
+   HEADER
+================================ */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  font-size: 24px;
+  color: #000000;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* ===============================
+   CARD
+================================ */
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 10px 20px rgba(0, 0, 0, 0.06);
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card h2 {
+  font-size: 22px;
+  color: #1f2937;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.card p {
+  color: #6b7280;
+  font-size: 15px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* ===============================
+   INPUTS
+================================ */
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 12px;
+  border-radius: 8px;
+  border: 1.5px solid #cbd5e1;
+  font-size: 15px;
+  color: #1f2937;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #0606ff;
+  box-shadow: 0 0 0 3px rgba(6, 6, 255, 0.1);
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:read-only {
+  background-color: #f9fafb;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+select.input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+select.input option {
+  color: #1f2937;
+  background-color: #ffffff;
+}
+
+/* ===============================
+   ROW
+================================ */
+.row {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* ===============================
+   BUTTON
+================================ */
+.button {
+  width: 100%;
+  padding: 13px 16px;
+  margin-top: 20px;
+  border-radius: 8px;
+  border: none;
+  background: #0606ff;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+}
+
+.button:hover {
+  background: #0505dd;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(6, 6, 255, 0.3);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button.secondary {
+  background: #f3f4f6;
+  color: #4b5563;
+  border: 1.5px solid #d1d5db;
+}
+
+.button.secondary:hover {
+  background: #e5e7eb;
+  border-color: #9ca3af;
+  box-shadow: none;
+}
+
+/* ===============================
+   BACK BUTTON
+================================ */
+.back-btn {
+  background: none;
+  border: none;
+  color: #0606ff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  font-weight: 600;
+  padding: 8px 0;
+  transition: color 0.2s ease;
+}
+
+.back-btn:hover {
+  color: #0505dd;
+  text-decoration: underline;
+}
+
+/* ===============================
+   ERROR
+================================ */
+.error {
+  margin-top: 8px;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 12px;
+  background: #fee2e2;
+  border-radius: 6px;
+  border-left: 3px solid #dc2626;
+}
+
+/* ===============================
+   GENDER BUTTONS
+================================ */
+.gender-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+}
+
+.gender-btn:hover {
+  border-color: #0606ff;
+  background: #f0f9ff;
+}
+
+.gender-btn.active {
+  background: #0606ff;
+  color: #ffffff;
+  border-color: #0606ff;
+}
+
+/* ===============================
+   SUCCESS MESSAGE
+================================ */
+.card h2:has(+ button) {
+  font-size: 24px;
+  margin-bottom: 32px;
+}
+
+/* ===============================
+   RESPONSIVE - TABLET (481px - 1024px)
+================================ */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .app-container {
+    padding: 48px 32px;
+  }
+
+  .card {
+    max-width: 480px;
+    padding: 36px;
+  }
+
+  .card h2 {
+    font-size: 24px;
+  }
+
+  .header h1 {
+    font-size: 26px;
+  }
+
+  .input {
+    padding: 13px 16px;
+    font-size: 15px;
+  }
+
+  .button {
+    padding: 14px 18px;
+    font-size: 16px;
+  }
+
+  .gender-btn {
+    padding: 13px;
+    font-size: 15px;
+  }
+}
+
+/* ===============================
+   RESPONSIVE - DESKTOP (1025px+)
+================================ */
+@media (min-width: 1025px) {
+  .app-container {
+    padding: 60px 48px;
+  }
+
+  .card {
+    max-width: 500px;
+    padding: 40px;
+  }
+
+  .card h2 {
+    font-size: 26px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+  }
+
+  .input {
+    padding: 14px 16px;
+    font-size: 16px;
+  }
+
+  .button {
+    padding: 14px 18px;
+    font-size: 16px;
+  }
+
+  .gender-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+
+/* ===============================
+   RESPONSIVE - MOBILE (max 480px)
+================================ */
+@media (max-width: 480px) {
+  .app-container {
+    padding: 24px 16px;
+  }
+
+  .card {
+    max-width: 100%;
+    padding: 24px 20px;
+  }
+
+  .card h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .row {
+    gap: 10px;
+  }
+
+  .header {
+    margin-bottom: 24px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .input {
+    padding: 11px 12px;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  .button {
+    padding: 12px;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+
+  .gender-btn {
+    padding: 11px;
+    font-size: 13px;
+  }
+
+  .back-btn {
+    font-size: 13px;
+  }
+
+  .error {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
