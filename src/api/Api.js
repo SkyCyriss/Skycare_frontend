@@ -8,26 +8,27 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // REQUIRED for session
+  withCredentials: true,
 });
 
 /* ================================
    REGISTER PATIENT
-   POST /api/patient/register
+   ⚠️ complantId (MATCH BACKEND)
 ================================ */
 export const registerPatientApi = async (
   patient,
   phone,
-  complaintId
+  complantId
 ) => {
   const response = await api.post(
-    `/patient/register?phone=${phone}&complantId=${complaintId}`,
+    `/patient/register?phone=${phone}&complantId=${complantId}`,
     {
       name: patient.name,
       age: patient.age,
       gender: patient.gender,
     }
   );
+
   return response.data;
 };
 
@@ -38,14 +39,20 @@ export const getPatientByPhoneApi = async (phone) => {
   const response = await api.get(
     `/patient/register?phone=${phone}`
   );
-  return response.data;
+
+  return Array.isArray(response.data)
+    ? response.data
+    : [];
 };
 
 /* ================================
    GET COMPLAINTS
 ================================ */
 export const getComplaintsApi = async () => {
-  const response = await api.get("/patient/complaints");
+  const response = await api.get(
+    "/patient/complaints"
+  );
+
   return Array.isArray(response.data)
     ? response.data
     : [];
@@ -59,6 +66,7 @@ export const addComplaintApi = async (data) => {
     "/patient/complaints",
     data
   );
+
   return response.data;
 };
 

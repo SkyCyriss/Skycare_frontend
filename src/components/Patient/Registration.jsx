@@ -6,7 +6,6 @@ import {
   registerPatientApi,
   getPatientByPhoneApi,
   getComplaintsApi,
-  addComplaintApi,
 } from "../../api/Api";
 
 function Patientform() {
@@ -18,8 +17,10 @@ function Patientform() {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
 
-  /* ================= EXISTING PATIENT ================= */
-  const [existingPatient, setExistingPatient] = useState(null);
+  /* ================= EXISTING PATIENTS ================= */
+  const [existingPatients, setExistingPatients] = useState([]);
+  const [selectedPatientIndex, setSelectedPatientIndex] =
+    useState("");
 
   /* ================= CURRENT USER ================= */
   const [user, setUser] = useState({
@@ -41,12 +42,11 @@ function Patientform() {
     registrationFee + (Number(consultationFee) || 0);
 
   /* ================= LOAD COMPLAINTS ================= */
-  const loadComplaints = async () => {
-    const data = await getComplaintsApi();
-    setComplaints(Array.isArray(data) ? data : []);
-  };
-
   useEffect(() => {
+    const loadComplaints = async () => {
+      const data = await getComplaintsApi();
+      setComplaints(Array.isArray(data) ? data : []);
+    };
     loadComplaints();
   }, []);
 
@@ -58,9 +58,7 @@ function Patientform() {
       return;
     }
 
-    const demoOtp = Math.floor(
-      100000 + Math.random() * 900000
-    );
+    const demoOtp = Math.floor(100000 + Math.random() * 900000);
     setGeneratedOtp(demoOtp.toString());
     alert(`Demo OTP: ${demoOtp}`);
 
@@ -76,24 +74,39 @@ function Patientform() {
     }
 
     try {
-      const patient =
-        await getPatientByPhoneApi(mobile);
+      const response = await getPatientByPhoneApi(mobile);
 
-      if (patient && patient.name) {
-        setExistingPatient(patient);
+      if (Array.isArray(response) && response.length > 0) {
+        setExistingPatients(response);
+        setSelectedPatientIndex("");
         setStep(3.5);
       } else {
         setStep(3);
       }
-    } catch {
+    } catch (error) {
+      console.error(error);
       setStep(3);
     }
   };
 
+  /* ================= SELECT EXISTING PATIENT ================= */
+  const handleSelectPatient = () => {
+    if (selectedPatientIndex === "") return;
+
+    const p = existingPatients[selectedPatientIndex];
+
+    setUser({
+      name: p.name,
+      age: p.age,
+      gender: p.gender,
+      complaintId: "",
+    });
+
+    setStep(3);
+  };
+
   /* ================= SAVE PATIENT ================= */
   const handleSavePatient = async () => {
-    console.log("PATIENT DATA BEFORE SAVE:", user);
-
     if (
       !user.name?.trim() ||
       !user.age ||
@@ -172,63 +185,64 @@ function Patientform() {
           <button className="button" onClick={handleVerifyOtp}>
             Verify OTP
           </button>
-
-          <button
-            className="button secondary"
-            onClick={() => setStep(1)}
-          >
-            ⬅ Back
-          </button>
         </div>
       )}
 
-      {/* STEP 3.5 EXISTING PATIENT */}
-      {step === 3.5 && existingPatient && (
-        <div className="card">
-          <h2>Hello, {existingPatient.name} 👋</h2>
-          <p>Who is visiting today?</p>
+      {/* STEP 3.5 — SELECT PATIENT */}
+{step === 3.5 && (
+  <div className="card">
+    <h2>Who is visiting today?</h2>
 
-          <button
-            className="button"
-            onClick={() => {
-              setUser({
-                name: existingPatient.name,
-                age: existingPatient.age,
-                gender: existingPatient.gender,
-                complaintId: "",
-              });
-              setStep(3);
-            }}
-          >
-            {existingPatient.name}
-          </button>
+    <select
+      className="input"
+      value={selectedPatientIndex}
+      onChange={(e) =>
+        setSelectedPatientIndex(e.target.value)
+      }
+    >
+      <option value="">Select Patient</option>
+      {existingPatients.map((p, index) => (
+        <option key={index} value={index}>
+          {p.name} ({p.age} / {p.gender})
+        </option>
+      ))}
+    </select>
 
-          <button
-            className="button"
-            style={{ background: "#16a34a" }}
-            onClick={() => {
-              setUser({
-                name: "",
-                age: "",
-                gender: "",
-                complaintId: "",
-              });
-              setStep(3);
-            }}
-          >
-            + Add Family Member
-          </button>
+    <button
+      className="button"
+      disabled={selectedPatientIndex === ""}
+      onClick={handleSelectPatient}
+    >
+      Continue
+    </button>
 
-          <button
-            className="button secondary"
-            onClick={() => setStep(2)}
-          >
-            ⬅ Back
-          </button>
-        </div>
-      )}
+    <button
+      className="button"
+      style={{ background: "#16a34a" }}
+      onClick={() => {
+        setUser({
+          name: "",
+          age: "",
+          gender: "",
+          complaintId: "",
+        });
+        setStep(3);
+      }}
+    >
+      + Add New Patient
+    </button>
 
-      {/* STEP 3 */}
+    <button
+      className="button secondary"
+      onClick={() => setStep(2)}
+    >
+      ⬅ Back
+    </button>
+  </div>
+)}
+
+
+      {/* STEP 3 — FORM */}
       {step === 3 && (
         <div className="card">
           <h2>Enter Patient Details</h2>
@@ -290,15 +304,6 @@ function Patientform() {
           <button className="button" onClick={handleSavePatient}>
             Continue
           </button>
-
-          <button
-            className="button secondary"
-            onClick={() =>
-              existingPatient ? setStep(3.5) : setStep(2)
-            }
-          >
-            ⬅ Back
-          </button>
         </div>
       )}
 
@@ -312,9 +317,7 @@ function Patientform() {
             placeholder="Consultation Fee"
             value={consultationFee}
             onChange={(e) =>
-              setConsultationFee(
-                e.target.value.replace(/\D/g, "")
-              )
+              setConsultationFee(e.target.value.replace(/\D/g, ""))
             }
           />
 
@@ -336,13 +339,6 @@ function Patientform() {
           <button className="button" onClick={handlePayment}>
             Pay & Confirm
           </button>
-
-          <button
-            className="button secondary"
-            onClick={() => setStep(3)}
-          >
-            ⬅ Back
-          </button>
         </div>
       )}
 
@@ -350,7 +346,6 @@ function Patientform() {
       {step === 5 && (
         <div className="card">
           <h2>Registration Successful ✅</h2>
-
           <button
             className="button"
             onClick={() => window.location.reload()}
