@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";   // ✅ ADDED
 import "./Registration.css";
 import Navbar from "../Navbar/Navbar";
 
@@ -9,6 +10,8 @@ import {
 } from "../../api/Api";
 
 function Patientform() {
+  const navigate = useNavigate(); // ✅ ADDED
+
   const [step, setStep] = useState(1);
 
   /* ================= MOBILE / OTP ================= */
@@ -19,8 +22,7 @@ function Patientform() {
 
   /* ================= EXISTING PATIENTS ================= */
   const [existingPatients, setExistingPatients] = useState([]);
-  const [selectedPatientIndex, setSelectedPatientIndex] =
-    useState("");
+  const [selectedPatientIndex, setSelectedPatientIndex] = useState("");
 
   /* ================= CURRENT USER ================= */
   const [user, setUser] = useState({
@@ -136,6 +138,10 @@ function Patientform() {
       alert("Complete payment details");
       return;
     }
+
+    /* ✅ ADD: mark registration success */
+    localStorage.setItem("registrationSuccess", "true");
+
     setStep(5);
   };
 
@@ -188,61 +194,60 @@ function Patientform() {
         </div>
       )}
 
-      {/* STEP 3.5 — SELECT PATIENT */}
-{step === 3.5 && (
-  <div className="card">
-    <h2>Who is visiting today?</h2>
+      {/* STEP 3.5 */}
+      {step === 3.5 && (
+        <div className="card">
+          <h2>Who is visiting today?</h2>
 
-    <select
-      className="input"
-      value={selectedPatientIndex}
-      onChange={(e) =>
-        setSelectedPatientIndex(e.target.value)
-      }
-    >
-      <option value="">Select Patient</option>
-      {existingPatients.map((p, index) => (
-        <option key={index} value={index}>
-          {p.name} ({p.age} / {p.gender})
-        </option>
-      ))}
-    </select>
+          <select
+            className="input"
+            value={selectedPatientIndex}
+            onChange={(e) =>
+              setSelectedPatientIndex(e.target.value)
+            }
+          >
+            <option value="">Select Patient</option>
+            {existingPatients.map((p, index) => (
+              <option key={index} value={index}>
+                {p.name} ({p.age} / {p.gender})
+              </option>
+            ))}
+          </select>
 
-    <button
-      className="button"
-      disabled={selectedPatientIndex === ""}
-      onClick={handleSelectPatient}
-    >
-      Continue
-    </button>
+          <button
+            className="button"
+            disabled={selectedPatientIndex === ""}
+            onClick={handleSelectPatient}
+          >
+            Continue
+          </button>
 
-    <button
-      className="button"
-      style={{ background: "#16a34a" }}
-      onClick={() => {
-        setUser({
-          name: "",
-          age: "",
-          gender: "",
-          complaintId: "",
-        });
-        setStep(3);
-      }}
-    >
-      + Add New Patient
-    </button>
+          <button
+            className="button"
+            style={{ background: "#16a34a" }}
+            onClick={() => {
+              setUser({
+                name: "",
+                age: "",
+                gender: "",
+                complaintId: "",
+              });
+              setStep(3);
+            }}
+          >
+            + Add New Patient
+          </button>
 
-    <button
-      className="button secondary"
-      onClick={() => setStep(2)}
-    >
-      ⬅ Back
-    </button>
-  </div>
-)}
+          <button
+            className="button secondary"
+            onClick={() => setStep(2)}
+          >
+            ⬅ Back
+          </button>
+        </div>
+      )}
 
-
-      {/* STEP 3 — FORM */}
+      {/* STEP 3 */}
       {step === 3 && (
         <div className="card">
           <h2>Enter Patient Details</h2>
@@ -346,11 +351,12 @@ function Patientform() {
       {step === 5 && (
         <div className="card">
           <h2>Registration Successful ✅</h2>
+
           <button
             className="button"
-            onClick={() => window.location.reload()}
+            onClick={() => navigate("/dashboard/live-queue")} // ✅ ADDED
           >
-            Done
+            Go to Doctor Dashboard
           </button>
         </div>
       )}

@@ -1,0 +1,1383 @@
+/* =========================
+   MODERN MEDICAL INTERFACE
+   Sophisticated • Clean • Professional
+========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* =========================
+   THEME VARIABLES
+========================= */
+:root {
+  /* Primary Palette - Deep Teal Medical Theme */
+  --primary-dark: #0A4D5C;
+  --primary: #0D7C92;
+  --primary-light: #10A5C4;
+  --accent: #00D4FF;
+  --accent-glow: rgba(0, 212, 255, 0.3);
+  
+  /* Status Colors */
+  --success: #00C48C;
+  --success-light: #7DFFC8;
+  --danger: #FF4757;
+  --danger-light: #FFB8C0;
+  --warning: #FFA500;
+  --warning-light: #FFD699;
+  
+  /* Neutrals */
+  --background: #F5F7FA;
+  --surface: #FFFFFF;
+  --surface-elevated: #FFFFFF;
+  --border: #E4E9F0;
+  --text-primary: #1A2332;
+  --text-secondary: #5A6B7D;
+  --text-tertiary: #8A98AC;
+  
+  /* Overlays */
+  --overlay-light: rgba(255, 255, 255, 0.95);
+  --overlay-dark: rgba(10, 77, 92, 0.05);
+  
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(10, 77, 92, 0.05);
+  --shadow-sm: 0 2px 8px rgba(10, 77, 92, 0.08);
+  --shadow-md: 0 4px 16px rgba(10, 77, 92, 0.12);
+  --shadow-lg: 0 8px 32px rgba(10, 77, 92, 0.16);
+  --shadow-xl: 0 16px 48px rgba(10, 77, 92, 0.20);
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #0D7C92 0%, #10A5C4 100%);
+  --gradient-accent: linear-gradient(135deg, #00D4FF 0%, #0D7C92 100%);
+  --gradient-success: linear-gradient(135deg, #00C48C 0%, #7DFFC8 100%);
+  --gradient-danger: linear-gradient(135deg, #FF4757 0%, #FFB8C0 100%);
+  --gradient-surface: linear-gradient(180deg, #FFFFFF 0%, #F8FAFB 100%);
+  
+  /* Animations */
+  --transition-quick: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+}
+
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* Hide scrollbars */
+.lcq-queue-list::-webkit-scrollbar,
+.lcq-consultation-panel::-webkit-scrollbar,
+.lcq-reports-page::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+.lcq-queue-list,
+.lcq-consultation-panel,
+.lcq-reports-page {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* =========================
+   MAIN WRAPPER
+========================= */
+.lcq-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+.lcq-topbar {
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.lcq-hospital-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.lcq-hospital-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.lcq-hospital-icon::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--gradient-accent);
+  border-radius: var(--radius-md);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity var(--transition-base);
+}
+
+.lcq-hospital-icon:hover::before {
+  opacity: 0.3;
+}
+
+.lcq-hospital-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.lcq-hospital-text strong {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.lcq-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.lcq-topbar-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.lcq-stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--background);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.lcq-stat-item svg {
+  color: var(--primary);
+}
+
+.lcq-stat-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.lcq-stat-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.lcq-status {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--success);
+  box-shadow: 0 0 20px rgba(0, 196, 140, 0.2);
+}
+
+.lcq-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(0, 196, 140, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(0, 196, 140, 0);
+  }
+}
+
+.lcq-status-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--success);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
+.lcq-page-header {
+  position: sticky;
+  top: 97px;
+  background: var(--surface);
+  padding: var(--spacing-xl) var(--spacing-2xl);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  z-index: 90;
+}
+
+.lcq-header-content h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+  letter-spacing: -1px;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lcq-doctor-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.lcq-doctor-avatar {
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.lcq-doctor-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lcq-doctor-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.lcq-doctor-specialty {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* =========================
+   TABS
+========================= */
+.lcq-queue-tabs {
+  position: sticky;
+  top: 202px;
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow-x: auto;
+  z-index: 80;
+}
+
+.lcq-tab {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  background: transparent;
+  border: 2px solid transparent;
+  color: var(--text-secondary);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  position: relative;
+}
+
+.lcq-tab svg {
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.lcq-tab:hover {
+  background: var(--background);
+  color: var(--primary);
+  border-color: var(--border);
+}
+
+.lcq-tab:hover svg {
+  transform: scale(1.1);
+}
+
+.lcq-tab-active {
+  background: var(--gradient-primary);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md), 0 0 24px var(--accent-glow);
+}
+
+.lcq-tab-active svg {
+  transform: scale(1);
+}
+
+.lcq-tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lcq-tab-title {
+  font-weight: 700;
+}
+
+.lcq-tab-count {
+  font-size: 11px;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+/* =========================
+   QUEUE LIST
+========================= */
+.lcq-queue-list {
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  background: var(--background);
+}
+
+/* =========================
+   PATIENT CARD - REDESIGNED
+========================= */
+.lcq-patient-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-md);
+  transition: all var(--transition-smooth);
+  box-shadow: var(--shadow-xs);
+  position: relative;
+  min-height: 80px;
+  overflow: hidden;
+  opacity: 0;
+  animation: slideInUp 0.5s ease forwards;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lcq-patient-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-color: var(--primary-light);
+}
+
+.lcq-patient-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  transition: width var(--transition-base);
+}
+
+.lcq-patient-card:hover::before {
+  width: 4px;
+}
+
+.lcq-card-glow {
+  position: absolute;
+  inset: -100%;
+  background: radial-gradient(circle at center, var(--accent-glow), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-smooth);
+  pointer-events: none;
+}
+
+.lcq-patient-card:hover .lcq-card-glow {
+  opacity: 1;
+}
+
+/* Priority Indicators */
+.lcq-priority-emergency::before {
+  background: var(--gradient-danger);
+}
+
+.lcq-priority-senior::before {
+  background: linear-gradient(180deg, var(--warning) 0%, var(--warning-light) 100%);
+}
+
+.lcq-priority-normal::before {
+  background: var(--gradient-primary);
+}
+
+/* =========================
+   PATIENT CARD - LEFT SECTION
+========================= */
+.lcq-patient-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex: 1;
+  min-width: 0;
+}
+
+.lcq-token {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.lcq-token::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--gradient-accent);
+  border-radius: var(--radius-sm);
+  opacity: 0.15;
+  z-index: -1;
+}
+
+.lcq-token-number {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  color: white;
+  letter-spacing: -0.5px;
+}
+
+.lcq-patient-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.lcq-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.lcq-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
+.lcq-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  border: 1px solid currentColor;
+}
+
+.lcq-badge svg {
+  width: 10px;
+  height: 10px;
+}
+
+.lcq-badge-emergency {
+  background: rgba(255, 71, 87, 0.1);
+  color: var(--danger);
+  box-shadow: 0 0 16px rgba(255, 71, 87, 0.2);
+}
+
+.lcq-badge-senior {
+  background: rgba(255, 165, 0, 0.1);
+  color: var(--warning);
+}
+
+.lcq-patient-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.lcq-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lcq-meta-item svg {
+  color: var(--primary);
+  width: 13px;
+  height: 13px;
+}
+
+.lcq-meta-separator {
+  color: var(--border);
+}
+
+.lcq-reason {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  padding: 4px var(--spacing-sm);
+  background: var(--background);
+  border-radius: var(--radius-sm);
+  width: fit-content;
+  border: 1px solid var(--border);
+}
+
+.lcq-reason svg {
+  color: var(--primary);
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+}
+
+/* =========================
+   PATIENT CARD - RIGHT SECTION
+========================= */
+.lcq-patient-right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.lcq-wait-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-sm);
+  min-width: 70px;
+  box-shadow: var(--shadow-xs);
+}
+
+.lcq-wait-time {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  color: white;
+}
+
+.lcq-wait-number {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.lcq-wait-unit {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.lcq-wait-label {
+  font-size: 10px;
+  color: white;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin-top: 2px;
+}
+
+.lcq-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.lcq-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: none;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.lcq-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.lcq-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.2), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.lcq-btn:hover::before {
+  opacity: 1;
+}
+
+.lcq-btn:active {
+  transform: scale(0.98);
+}
+
+.lcq-btn-call {
+  background: var(--gradient-success);
+  color: white;
+  box-shadow: var(--shadow-md), 0 0 20px rgba(0, 196, 140, 0.3);
+  border: 2px solid transparent;
+}
+
+.lcq-btn-call:hover {
+  box-shadow: var(--shadow-lg), 0 0 32px rgba(0, 196, 140, 0.5);
+  transform: translateY(-2px);
+}
+
+.lcq-btn-move {
+  background: var(--surface);
+  color: var(--primary);
+  border: 2px solid var(--border);
+  padding: 8px;
+}
+
+.lcq-btn-move svg {
+  width: 14px;
+  height: 14px;
+}
+
+.lcq-btn-move:hover {
+  background: var(--background);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.lcq-btn-secondary {
+  background: var(--background);
+  color: var(--text-primary);
+  border: 2px solid var(--border);
+  width: 100%;
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.lcq-btn-secondary:hover {
+  background: var(--surface);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.lcq-btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.lcq-btn-back:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateX(-4px);
+}
+
+/* =========================
+   CONSULTATION PANEL
+========================= */
+.lcq-consultation-panel {
+  padding: var(--spacing-xl) var(--spacing-2xl);
+  background: var(--background);
+}
+
+.lcq-consult-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.lcq-consultation-header {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--border);
+}
+
+.lcq-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--border);
+}
+
+.lcq-header-top h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.lcq-session-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--success);
+  border: 1.5px solid var(--success);
+}
+
+.lcq-session-pulse {
+  width: 8px;
+  height: 8px;
+  background: var(--success);
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.lcq-patient-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.lcq-summary-token {
+  width: 64px;
+  height: 64px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: white;
+  box-shadow: var(--shadow-md);
+  flex-shrink: 0;
+}
+
+.lcq-summary-info h4 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.lcq-summary-info p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.lcq-consult-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.lcq-notes-section {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.lcq-section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.lcq-section-header svg {
+  color: var(--primary);
+}
+
+.lcq-section-header h4 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.lcq-notes-textarea {
+  width: 100%;
+  min-height: 240px;
+  padding: var(--spacing-lg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  resize: vertical;
+  transition: all var(--transition-base);
+  background: var(--background);
+  color: var(--text-primary);
+}
+
+.lcq-notes-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(13, 124, 146, 0.1);
+  background: var(--surface);
+}
+
+.lcq-notes-textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+.lcq-consult-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.lcq-action-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.lcq-action-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.lcq-action-btn:hover::before {
+  opacity: 0.05;
+}
+
+.lcq-action-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.lcq-action-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+}
+
+.lcq-action-reports .lcq-action-icon {
+  background: rgba(13, 124, 146, 0.1);
+  color: var(--primary);
+}
+
+.lcq-action-reports:hover .lcq-action-icon {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.lcq-action-treatment .lcq-action-icon {
+  background: rgba(0, 196, 140, 0.1);
+  color: var(--success);
+}
+
+.lcq-action-treatment:hover .lcq-action-icon {
+  background: var(--gradient-success);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.lcq-action-end .lcq-action-icon {
+  background: rgba(255, 71, 87, 0.1);
+  color: var(--danger);
+}
+
+.lcq-action-end:hover .lcq-action-icon {
+  background: var(--gradient-danger);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.lcq-action-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  flex: 1;
+}
+
+.lcq-action-text span {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.lcq-action-text small {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.lcq-action-arrow {
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+}
+
+.lcq-action-btn:hover .lcq-action-arrow {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+.lcq-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) var(--spacing-xl);
+  text-align: center;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--border);
+  margin: var(--spacing-xl);
+}
+
+.lcq-empty-icon-wrapper {
+  width: 120px;
+  height: 120px;
+  background: var(--background);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.lcq-empty-icon-wrapper svg {
+  color: var(--text-tertiary);
+  opacity: 0.4;
+}
+
+.lcq-empty-state h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.lcq-empty-state p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* =========================
+   REPORTS PAGE
+========================= */
+.lcq-reports-page {
+  padding: var(--spacing-xl) var(--spacing-2xl);
+  background: var(--background);
+}
+
+.lcq-reports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--border);
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+}
+
+.lcq-reports-header h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -1px;
+  margin-bottom: var(--spacing-xs);
+}
+
+.lcq-reports-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.lcq-reports-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+.lcq-report-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  transition: all var(--transition-smooth);
+  box-shadow: var(--shadow-md);
+}
+
+.lcq-report-card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
+  border-color: var(--primary-light);
+}
+
+.lcq-report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+}
+
+.lcq-report-header h4 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.lcq-report-badge {
+  padding: 6px 12px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.lcq-xray-box {
+  height: 280px;
+  background: var(--background);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  margin-bottom: var(--spacing-lg);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  gap: var(--spacing-md);
+}
+
+.lcq-xray-box:hover {
+  border-color: var(--primary);
+  background: rgba(13, 124, 146, 0.05);
+}
+
+.lcq-xray-icon {
+  opacity: 0.3;
+  color: var(--primary);
+}
+
+.lcq-xray-box p {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.lcq-xray-date {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.lcq-document-list {
+  background: var(--background);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.lcq-document-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.lcq-document-item:hover {
+  background: rgba(13, 124, 146, 0.05);
+  transform: translateX(4px);
+  border-color: var(--primary-light);
+}
+
+.lcq-document-item svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.lcq-document-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.lcq-document-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.lcq-document-date {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+  .lcq-reports-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .lcq-consult-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --spacing-2xl: 24px;
+  }
+
+  .lcq-topbar {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .lcq-hospital-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .lcq-hospital-text strong {
+    font-size: 16px;
+  }
+
+  .lcq-topbar-stats {
+    display: none;
+  }
+
+  .lcq-page-header {
+    padding: var(--spacing-lg);
+  }
+
+  .lcq-header-content h2 {
+    font-size: 24px;
+  }
+
+  .lcq-queue-tabs {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .lcq-queue-list {
+    padding: var(--spacing-lg);
+  }
+
+  .lcq-patient-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+  }
+
+  .lcq-patient-left {
+    width: 100%;
+  }
+
+  .lcq-patient-right {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .lcq-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .lcq-btn {
+    width: 100%;
+  }
+
+  .lcq-consultation-panel,
+  .lcq-reports-page {
+    padding: var(--spacing-lg);
+  }
+
+  .lcq-reports-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   PRINT STYLES
+========================= */
+@media print {
+  .lcq-topbar,
+  .lcq-queue-tabs,
+  .lcq-actions,
+  .lcq-btn {
+    display: none;
+  }
+
+  .lcq-patient-card {
+    page-break-inside: avoid;
+  }
+}
